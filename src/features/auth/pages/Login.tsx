@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Eye, EyeOff, Calendar, Building } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -17,13 +17,11 @@ import { loginSchema, type LoginFormData } from '@/types/forms'
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [showSSOModal, { toggle: toggleSSOModal }] = useToggle()
-  const [showMFAPrompt, { toggle: toggleMFAPrompt }] = useToggle()
   const [pendingMFAUser, setPendingMFAUser] = useState<any>(null)
   const { login, isLoginLoading, error } = useAuth()
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -33,28 +31,15 @@ export default function Login() {
   })
 
   const onSubmit = (data: LoginFormData) => {
-    login(data.email, data.password, data.remember_me)
-      .then((response: any) => {
-        // Check if MFA is required
-        if (response?.user?.is_mfa_enabled && !response?.mfa_verified) {
-          setPendingMFAUser(response.user)
-          toggleMFAPrompt()
-        }
-        // If MFA is not required or already verified, navigation will be handled by the auth store
-      })
-      .catch(() => {
-        // Error handling is done in the hook
-      })
+    login(data)
   }
 
   const handleMFASuccess = () => {
-    setPendingMFAUser(null)
     toggleMFAPrompt()
     // Navigation to dashboard will be handled by the auth store
   }
 
   const handleMFACancel = () => {
-    setPendingMFAUser(null)
     toggleMFAPrompt()
     // User remains on login page
   }

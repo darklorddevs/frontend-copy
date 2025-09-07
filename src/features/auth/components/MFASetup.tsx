@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { QrCode, Smartphone, Shield, Copy, Check } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Modal } from '@/components/ui/Modal'
 import { Badge } from '@/components/ui/Badge'
 import { useAuth } from '@/hooks/useAuth'
 import { copyToClipboard } from '@/utils/helpers'
 import { mfaSetupSchema, mfaVerificationSchema, type MFASetupFormData, type MFAVerificationFormData } from '@/types/forms'
+import { z } from 'zod'
 
 interface MFASetupProps {
   isOpen: boolean

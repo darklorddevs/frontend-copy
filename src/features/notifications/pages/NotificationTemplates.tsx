@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Plus, Mail, MessageSquare, Edit, Trash2, TestTube, Copy, MoreHorizontal } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
@@ -18,8 +18,6 @@ import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { useNotifications } from '@/hooks/useNotifications'
 import { useToggle } from '@/hooks/useToggle'
 import { ROUTES } from '@/constants/routes'
-import { formatRelativeTime } from '@/utils/date'
-import { formatNotificationType } from '@/utils/format'
 import { notificationTemplateSchema, type NotificationTemplateFormData } from '@/types/forms'
 import type { NotificationTemplate } from '@/types'
 
@@ -57,13 +55,14 @@ export default function NotificationTemplates() {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     reset,
     formState: { errors },
   } = useForm<NotificationTemplateFormData>({
     resolver: zodResolver(notificationTemplateSchema),
     defaultValues: {
-      template_type: 'booking_confirmation',
+      template_type: 'booking_confirmation' as const,
       notification_type: 'email',
       is_active: true,
       is_default: false,

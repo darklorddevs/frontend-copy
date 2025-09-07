@@ -44,6 +44,7 @@ export interface InputProps {
   id?: string
   autoComplete?: string
   autoFocus?: boolean
+  maxLength?: number
   'data-testid'?: string
 }
 

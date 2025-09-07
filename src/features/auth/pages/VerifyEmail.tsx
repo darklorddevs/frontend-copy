@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, useSearchParams, Navigate } from 'react-router-dom'
-import { Calendar, Check, X, Mail } from 'lucide-react'
+import { Check, X, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
@@ -10,7 +10,7 @@ import { ROUTES } from '@/constants/routes'
 export default function VerifyEmail() {
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
-  const { verifyEmail, isEmailVerificationLoading, resendVerification, user, clearError } = useAuth()
+  const { verifyEmail, resendVerification, user, clearError } = useAuth()
   const [verificationStatus, setVerificationStatus] = React.useState<'loading' | 'success' | 'error'>('loading')
 
   // Clear any previous errors when component mounts
@@ -20,7 +20,7 @@ export default function VerifyEmail() {
 
   useEffect(() => {
     if (token) {
-      verifyEmail({ token })
+      verifyEmail(token)
         .then(() => setVerificationStatus('success'))
         .catch(() => setVerificationStatus('error'))
     } else {
