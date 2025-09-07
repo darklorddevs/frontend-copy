@@ -223,5 +223,6 @@ export const useAuth = () => {
       user?.roles?.some(role => 
         role.role_permissions?.some(perm => perm.codename === permission)
       ) || false,
+    setUser: authStore().setUser,
   }
 }

@@ -349,23 +349,12 @@ export function useAuth() {
     },
   })
 
-  // SSO Sessions query
-  const {
-    data: ssoSessions,
-    isLoading: ssoSessionsLoading,
-    error: ssoSessionsError,
-  } = useQuery({
-    queryKey: ['user', 'ssoSessions'],
-    queryFn: () => authService.getSSOSessions(),
-    enabled: isAuthenticated,
-  })
-
   // Revoke SSO session mutation
   const revokeSSOSessionMutation = useMutation({
     mutationFn: (sessionId: string) => authService.revokeSSOSession(sessionId),
     onSuccess: () => {
       showSuccess('SSO session revoked', 'The SSO session has been revoked successfully.')
-      queryClient.invalidateQueries({ queryKey: ['user', 'ssoSessions'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
     },
     onError: (error: any) => {
       showError('Failed to revoke SSO session', error.message)

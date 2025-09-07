@@ -209,7 +209,7 @@ export const notificationPreferenceSchema = z.object({
   booking_confirmations_sms: z.boolean().optional(),
   booking_reminders_sms: z.boolean().optional(),
   booking_cancellations_sms: z.boolean().optional(),
-  reminder_minutes_before: z.number().min(0, 'Cannot be negative').max(10080, 'Maximum 1 week'),
+  reminder_minutes_before: z.number().min(0, 'Cannot be negative').max(10080, 'Maximum 1 week').optional(),
   daily_agenda_time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format'),
   dnd_enabled: z.boolean().optional(),
   dnd_start_time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format').optional(),
@@ -217,7 +217,7 @@ export const notificationPreferenceSchema = z.object({
   exclude_weekends_reminders: z.boolean().optional(),
   exclude_weekends_agenda: z.boolean().optional(),
   preferred_notification_method: z.enum(['email', 'sms', 'both']).optional(),
-  max_reminders_per_day: z.number().min(1, 'At least 1 reminder').max(50, 'Maximum 50 reminders'),
+  max_reminders_per_day: z.number().min(1, 'At least 1 reminder').max(50, 'Maximum 50 reminders').optional(),
 })
 
 // Contact Forms

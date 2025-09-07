@@ -322,7 +322,7 @@ export default function NotificationTemplates() {
             <Select
               options={templateTypeOptions}
               value={watchedValues.template_type}
-              onChange={(value) => register('template_type').onChange({ target: { value } })}
+              onChange={(value) => register('template_type').onChange({ target: { value: value as any } })}
               label="Template Type"
               error={errors.template_type?.message}
               required
@@ -331,7 +331,7 @@ export default function NotificationTemplates() {
             <Select
               options={notificationTypeOptions}
               value={watchedValues.notification_type}
-              onChange={(value) => register('notification_type').onChange({ target: { value } })}
+              onChange={(value) => register('notification_type').onChange({ target: { value: value as any } })}
               label="Notification Type"
               error={errors.notification_type?.message}
               required
@@ -385,16 +385,30 @@ export default function NotificationTemplates() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Checkbox
-              {...register('is_active')}
-              label="Active"
-              description="Enable this template"
+            <Controller
+              name="is_active"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  label="Active"
+                  description="Enable this template"
+                />
+              )}
             />
 
-            <Checkbox
-              {...register('is_default')}
-              label="Default Template"
-              description="Use as default for this type"
+            <Controller
+              name="is_default"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  label="Default Template"
+                  description="Use as default for this type"
+                />
+              )}
             />
           </div>
 
@@ -434,7 +448,7 @@ export default function NotificationTemplates() {
             <Select
               options={templateTypeOptions}
               value={watchedValues.template_type}
-              onChange={(value) => register('template_type').onChange({ target: { value } })}
+              onChange={(value) => register('template_type').onChange({ target: { value: value as any } })}
               label="Template Type"
               error={errors.template_type?.message}
               required
@@ -443,7 +457,7 @@ export default function NotificationTemplates() {
             <Select
               options={notificationTypeOptions}
               value={watchedValues.notification_type}
-              onChange={(value) => register('notification_type').onChange({ target: { value } })}
+              onChange={(value) => register('notification_type').onChange({ target: { value: value as any } })}
               label="Notification Type"
               error={errors.notification_type?.message}
               required
@@ -470,16 +484,30 @@ export default function NotificationTemplates() {
           />
 
           <div className="grid grid-cols-2 gap-4">
-            <Checkbox
-              {...register('is_active')}
-              label="Active"
-              description="Enable this template"
+            <Controller
+              name="is_active"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  label="Active"
+                  description="Enable this template"
+                />
+              )}
             />
 
-            <Checkbox
-              {...register('is_default')}
-              label="Default Template"
-              description="Use as default for this type"
+            <Controller
+              name="is_default"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  label="Default Template"
+                  description="Use as default for this type"
+                />
+              )}
             />
           </div>
 
